@@ -1,5 +1,6 @@
 ﻿// Touhou Project.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
+// "3번자리에 주석 추가하였다."
 
 #include "framework.h"
 #include "Touhou Project.h"
