@@ -139,14 +139,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="def.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Maths.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestHeder.h" />
-    <ClInclude Include="Touhou Project.h" />
+    <ClInclude Include="WindowAPI.h" />
+    <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaGameObject.h" />
+    <ClInclude Include="yaLogoScene.h" />
+    <ClInclude Include="yaPlayer.h" />
+    <ClInclude Include="yaScene.h" />
+    <ClInclude Include="yaSceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Touhou Project.cpp" />
+    <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaGameObject.cpp" />
+    <ClCompile Include="yaLogoScene.cpp" />
+    <ClCompile Include="yaPlayer.cpp" />
+    <ClCompile Include="yaScene.cpp" />
+    <ClCompile Include="yaSceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Touhou Project.rc" />

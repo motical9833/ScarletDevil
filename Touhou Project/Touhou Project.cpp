@@ -1,9 +1,10 @@
 ﻿// Touhou Project.cpp : 애플리케이션에 대한 진입점을 정의합니다.
-//
-// "3번자리에 주석 추가하였다."
 
-#include "framework.h"
-#include "Touhou Project.h"
+
+#include "Common.h"
+#include "WindowAPI.h"
+#include "yaApplication.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -12,16 +13,19 @@ HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
+
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+
+// int main() {}
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+    _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPWSTR    lpCmdLine,
+    _In_ int       nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -38,19 +42,36 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
-
+     
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TOUHOUPROJECT));
 
     MSG msg;
 
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+                break;
+
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
+        else
+        {
+            // 게임 실행
+            ya::Application::GetInstance().Tick();
+        }
+    }
+
+    if (WM_QUIT == msg.message)
+    {
+        //메모리 해제
+
     }
 
     return (int) msg.wParam;
@@ -98,16 +119,26 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   WindowData windowData;
+   windowData.width = 1920;
+   windowData.height = 1080;
+
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+   windowData.hWnd = hWnd;
+   windowData.hdc = nullptr;
 
    if (!hWnd)
    {
       return FALSE;
    }
 
+   SetWindowPos(hWnd, nullptr, 0, 0, windowData.width, windowData.height, 0);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   ya::Application::GetInstance().Initialize(windowData);
 
    return TRUE;
 }
@@ -147,6 +178,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+
+            //스톡 오브젝트
+            // 화면 지우기
+            HBRUSH hClearBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
+            HBRUSH oldClearBrush = (HBRUSH)SelectObject(hdc, hClearBrush);
+            Rectangle(hdc, -1, -1, 1921, 1081);
+            SelectObject(hdc, oldClearBrush);
+
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
             EndPaint(hWnd, &ps);
         }

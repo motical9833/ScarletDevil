@@ -13,6 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{b03db042-c327-4a92-8f90-c67fe31c5a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{b12145f1-8423-42a0-9dbe-2c82ec25289c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{cc9fdbee-11b7-4292-8fc0-323a210c3d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{2a9db536-24ff-4609-98fe-263880a5a318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\High Level Interface">
+      <UniqueIdentifier>{bab3c76a-ab59-4f81-be43-3ca860367103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager">
+      <UniqueIdentifier>{e8cc5ed1-2c3e-4fa2-bf39-44ebb84d02dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{3a37a453-014a-4ee5-8645-1ad47f74aea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Base">
+      <UniqueIdentifier>{5e7b0bd5-49e2-4991-b8e1-34e720551ff5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -24,17 +48,42 @@
     <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Touhou Project.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="TestHeder.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Touhou Project.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
+    <ClInclude Include="Common.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="def.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEntity.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="yaApplication.h">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGameObject.h">
+      <Filter>Engine\GameObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSceneManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogoScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowAPI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Touhou Project.rc">
@@ -48,5 +97,31 @@
     <Image Include="Touhou Project.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Touhou Project.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEntity.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="yaApplication.cpp">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGameObject.cpp">
+      <Filter>Engine\GameObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSceneManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogoScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
