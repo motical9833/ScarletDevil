@@ -1,18 +1,29 @@
 #pragma once
 
-
-struct Vector2
+namespace ya
 {
-	float x;
-	float y;
-
-	Vector2(float x, float y)
+	struct Vector2
 	{
-		this->x = x;
-		this->y = y;
-	}
+		static Vector2 Zero;
+		static Vector2 One;
+		static Vector2 Right;
+		static Vector2 Left;
+		static Vector2 Up;
+		static Vector2 Down;
 
-	Vector2(const Vector2& other) = default;
-	Vector2() = default;
-	~Vector2() = default;
-};
+
+		float x;
+		float y;
+
+		Vector2(float x, float y)
+		{
+			this->x = x;
+			this->y = y;
+		}
+
+		Vector2(const Vector2& other) = default;
+		Vector2() = default;
+		~Vector2() = default;
+
+	};
+}

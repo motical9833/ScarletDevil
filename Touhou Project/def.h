@@ -1,5 +1,7 @@
 #pragma once
 
+#define KEY_PREESE(KEY) ya::Input::GetKeyState(KEY) == ya::eKeyState::PRESSED
+
 enum class eSceneType
 {
 	Logo,
@@ -14,4 +16,12 @@ enum class eSceneType
 	Stage_PH,
 	Ending,
 	MAX,
+};
+
+enum class eComponentType
+{
+	Animator,
+	Collider,
+	Sound,
+	End,
 };

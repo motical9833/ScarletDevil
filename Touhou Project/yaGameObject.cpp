@@ -10,7 +10,14 @@ namespace ya
 	}
 	GameObject::~GameObject()
 	{
+		for (Component* component : mComponents)
+		{
+			if (component == nullptr)
+				continue;
 
+			delete component;
+			component = nullptr;
+		}
 	}
 	void GameObject::Initialize()
 	{
@@ -18,10 +25,28 @@ namespace ya
 	}
 	void GameObject::Tick()
 	{
+		// 모든 컴포넌트 Tick 호출
+		for (Component* component:mComponents)
+		{
+			if (component == nullptr)
+				continue;
 
+			component->Tick();
+		}
 	}
 	void GameObject::Render(HDC hdc)
 	{
+		// 모든 컴포넌트 Render 호출
+		for (Component* component : mComponents)
+		{
+			if (component == nullptr)
+				continue;
 
+			component->Render(hdc);
+		}
+	}
+	void GameObject::AddComponent(Component* component)
+	{
+		mComponents.push_back(component);
 	}
 }
