@@ -12,6 +12,6 @@ namespace ya
 	}
 	void Animator::Tick()
 	{
-		int a = 0;
+
 	}
 }

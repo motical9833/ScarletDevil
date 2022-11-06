@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,38 +150,53 @@
     <ClInclude Include="WindowAPI.h" />
     <ClInclude Include="yaAnimator.h" />
     <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaBgImageObject.h" />
     <ClInclude Include="yaCollider.h" />
+    <ClInclude Include="yaCollisionManager.h" />
     <ClInclude Include="yaComponent.h" />
+    <ClInclude Include="yaDanmaku.h" />
+    <ClInclude Include="yaEndScene.h" />
     <ClInclude Include="yaEntity.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="yaImage.h" />
     <ClInclude Include="yaInput.h" />
     <ClInclude Include="yaLogoScene.h" />
+    <ClInclude Include="yaMonster.h" />
+    <ClInclude Include="yaObject.h" />
     <ClInclude Include="yaPlayer.h" />
+    <ClInclude Include="yaPlayScene.h" />
     <ClInclude Include="yaResource.h" />
     <ClInclude Include="yaResources.h" />
     <ClInclude Include="yaScene.h" />
     <ClInclude Include="yaSceneManager.h" />
     <ClInclude Include="yaTime.h" />
+    <ClInclude Include="yaTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Touhou Project.cpp" />
     <ClCompile Include="yaAnimator.cpp" />
     <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaBgImageObject.cpp" />
     <ClCompile Include="yaCollider.cpp" />
+    <ClCompile Include="yaCollisionManager.cpp" />
     <ClCompile Include="yaComponent.cpp" />
+    <ClCompile Include="yaDanmaku.cpp" />
+    <ClCompile Include="yaEndScene.cpp" />
     <ClCompile Include="yaEntity.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="yaImage.cpp" />
     <ClCompile Include="yaInput.cpp" />
     <ClCompile Include="yaLogoScene.cpp" />
+    <ClCompile Include="yaMonster.cpp" />
     <ClCompile Include="yaPlayer.cpp" />
+    <ClCompile Include="yaPlayScene.cpp" />
     <ClCompile Include="yaResource.cpp" />
     <ClCompile Include="yaResources.cpp" />
     <ClCompile Include="yaScene.cpp" />
     <ClCompile Include="yaSceneManager.cpp" />
     <ClCompile Include="yaTime.cpp" />
+    <ClCompile Include="yaTitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Touhou Project.rc" />

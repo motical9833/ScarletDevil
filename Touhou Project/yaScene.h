@@ -4,9 +4,13 @@
 
 namespace ya
 {
+
+
 	class GameObject;
 	class Scene : public Entity
 	{
+
+
 	public:
 		Scene();
 		virtual ~Scene();
@@ -17,9 +21,18 @@ namespace ya
 		virtual void Tick();  //업데이트
 		virtual void Render(HDC hdc);  // 랜더
 
-		void AddGameObject(GameObject* object); //오브젝트 추가
+		virtual void Enter();
+		virtual void Exit();
+
+		void AddGameObject(GameObject* object, eColliderLayer type); //오브젝트 추가
+
+		std::vector<GameObject*>& GetGameObjects(eColliderLayer type) { return mObjects[(UINT)type]; }
+		std::vector<std::vector<GameObject*>>& GetGameObjects() { return mObjects; }
 
 	private:
-		std::vector<GameObject*> mObjects;
+		std::vector<std::vector<GameObject*>> mObjects;
+
+		//typedef std::vector<std::vector<GameObject*>> GameObjects;
+		//typedef std::vector<GameObject*> LayerObjects;
 	};
 }

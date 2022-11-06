@@ -1,4 +1,20 @@
-﻿  yaAnimator.cpp
-  yaCollider.cpp
+﻿  yaApplication.cpp
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaApplication.cpp(69,32): warning C4838: 'UINT'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaApplication.cpp(69,50): warning C4838: 'UINT'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+  yaCollisionManager.cpp
+  yaLogoScene.cpp
+  yaMonster.cpp
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(51,59): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(51,51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(51,43): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(51,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  yaPlayScene.cpp
+  yaPlayer.cpp
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaPlayer.cpp(109,59): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaPlayer.cpp(109,51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaPlayer.cpp(109,43): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaPlayer.cpp(109,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  yaSceneManager.cpp
+  yaTitleScene.cpp
   코드를 생성하고 있습니다...
   Touhou Project.vcxproj -> C:\Users\gilhu\source\repos\Touhou Project\Debug\Touhou Project.exe

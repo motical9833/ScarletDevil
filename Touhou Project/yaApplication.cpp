@@ -3,6 +3,7 @@
 #include "yaTime.h"
 #include "yaInput.h"
 #include "yaResources.h"
+#include "yaCollisionManager.h"
 namespace ya
 {
 	//Application Application::mInstance;
@@ -13,7 +14,6 @@ namespace ya
 
 		Time::Initialize();
 		Input::Initialize();
-
 		SceneManager::Initialize();
 	}
 
@@ -22,11 +22,12 @@ namespace ya
 		Time::Tick();
 		Input::Tick();
 
+		SceneManager::Tick();
+		CollisionManager::Tick();
 		//clear 배경색(흰색)
 		Rectangle(mWindowData.backBuffer, -1, -1, mWindowData.width + 1, mWindowData.height + 1);
 
 
-		SceneManager::Tick();
 		SceneManager::Render(mWindowData.backBuffer);
 
 		Input::Render(mWindowData.backBuffer);
@@ -34,9 +35,14 @@ namespace ya
 
 
 		//BitBlt 함수는 DC간에 이미지를 복사해주는 함수
+		//화면에 그리기
 		BitBlt(mWindowData.hdc,
 			0, 0, mWindowData.width, mWindowData.height, mWindowData.backBuffer,
 			0, 0,SRCCOPY);
+
+
+		//Death()상태가된 오브젝트 제거
+		//SceneManager::DestroyGameObject();
 	}
 	 
 	Application::Application()
@@ -82,5 +88,15 @@ namespace ya
 			(HBITMAP)SelectObject(mWindowData.backBuffer, mWindowData.backTexture);
 
 		DeleteObject(dafaultBitmap);
+
+		// 메모리 해재 해주어야한다.
+		mPens[(UINT)ePenColor::Red] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+		mPens[(UINT)ePenColor::Green] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+		mPens[(UINT)ePenColor::Blue] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+
+		mBrushes[(UINT)eBrushColor::Transparent] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+		mBrushes[(UINT)eBrushColor::Blakc] = (HBRUSH)GetStockObject(BLACK_BRUSH);
+		mBrushes[(UINT)eBrushColor::Gray] = CreateSolidBrush(RGB(71, 71, 71));
+		mBrushes[(UINT)eBrushColor::White] = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	}
 }

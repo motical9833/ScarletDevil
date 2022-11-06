@@ -19,5 +19,6 @@ namespace ya
 		static LARGE_INTEGER mCurFrequency;
 
 		static float mDeltaTime;
+		static float mTime;
 	};
 }

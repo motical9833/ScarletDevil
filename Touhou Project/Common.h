@@ -6,14 +6,20 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <bitset>
+#include <set>
 
 #include "def.h"
 #include "Maths.h"
+
 
 #pragma comment(lib,"Msimg32.lib")
 
 //typedef Pos POINT;
 //using Pos = POINT;
+
+//typedef std::vector<std::vector<GameObject*>> GameObjects;
+//typedef std::vector<GameObject*> LayerObjects;
 
 struct WindowData
 {
@@ -41,6 +47,13 @@ private:
 	HPEN mPen;
 
 public:
+	Pen(HDC hdc)
+		:mHdc(hdc)
+		, mOldPen(NULL)
+		, mPen(NULL)
+	{
+
+	}
 	Pen(HDC hdc, HPEN pen)
 		:mHdc(hdc)
 		, mOldPen(NULL)
@@ -54,6 +67,10 @@ public:
 		DeleteObject(mPen); 
 	}
 
+	void SetPen(HPEN pen)
+	{
+		mOldPen = (HPEN)SelectObject(mHdc, pen);
+	}
 };
 
 struct Brush

@@ -49,6 +49,9 @@
     <Filter Include="Engine\Component\Base">
       <UniqueIdentifier>{bd11e93c-1c58-4576-bdaa-1f961065f909}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\Base">
+      <UniqueIdentifier>{2a6f1f68-e464-4f8d-bad3-1bcddd573bb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -77,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="yaApplication.h">
       <Filter>Engine\High Level Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="yaScene.h">
-      <Filter>Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="yaGameObject.h">
       <Filter>Engine\GameObject\Base</Filter>
@@ -120,6 +120,33 @@
     <ClInclude Include="yaComponent.h">
       <Filter>Engine\Component\Base</Filter>
     </ClInclude>
+    <ClInclude Include="yaTitleScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaPlayScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaEndScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="yaScene.h">
+      <Filter>Engine\Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBgImageObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMonster.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaCollisionManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDanmaku.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaObject.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Touhou Project.rc">
@@ -143,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="yaApplication.cpp">
       <Filter>Engine\High Level Interface</Filter>
-    </ClCompile>
-    <ClCompile Include="yaScene.cpp">
-      <Filter>Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="yaGameObject.cpp">
       <Filter>Engine\GameObject\Base</Filter>
@@ -185,6 +209,30 @@
     </ClCompile>
     <ClCompile Include="yaComponent.cpp">
       <Filter>Engine\Component\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaTitleScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaEndScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="yaScene.cpp">
+      <Filter>Engine\Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBgImageObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMonster.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaCollisionManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDanmaku.cpp">
+      <Filter>Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
