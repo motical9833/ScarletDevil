@@ -28,7 +28,7 @@ namespace ya
 		}
 
 
-		//Death() 상태의 오브젝트 제거
+		//Death() 상태의 오브젝트 제거 
 		static __forceinline void Release()
 		{
 			Scene* scene = SceneManager::GetPlayScene();
@@ -51,7 +51,7 @@ namespace ya
 
 		static __forceinline void Destory(GameObject* gameObj,float deathTime)
 		{
-			gameObj->Death();
+			gameObj->SetDeathTime(deathTime);
 		}
 	}
 }

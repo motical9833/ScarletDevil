@@ -19,8 +19,8 @@ namespace ya
 		virtual void OnCollisionExit(Collider* other) override;
 
 	private:
-		//float mSpeed;
 		Image* mImage;
+		float mTime;
 	};
-}
 
+}

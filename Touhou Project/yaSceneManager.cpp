@@ -14,7 +14,6 @@ namespace ya
 		//¸ğµç ¾À ÃÊ±âÈ­
 		//·Î°í¾À ÃÊ±âÈ­
 		mScenes[(UINT)eSceneType::Logo] = new LogoScene();
-		ChangeScene(eSceneType::Logo);
 		mScenes[(UINT)eSceneType::Logo]->Initialize();
 
 		mScenes[(UINT)eSceneType::Title] = new TitleScene();
@@ -25,6 +24,8 @@ namespace ya
 
 		mScenes[(UINT)eSceneType::End] = new EndScene();
 		mScenes[(UINT)eSceneType::End]->Initialize();
+
+		ChangeScene(eSceneType::Logo);
 
 	}
 
@@ -51,17 +52,21 @@ namespace ya
 			scene = nullptr;
 		}
 	}
-	void SceneManager::ChangeScene(eSceneType tyep)
+	void SceneManager::ChangeScene(eSceneType type)
 	{
-		if (mPlayScene == nullptr)
-		{
-			mPlayScene = mScenes[(UINT)eSceneType::Logo];
-		}
-		else
-		{
+		if (mScenes[(UINT)type] == nullptr)
+			return;
+		
+
+		//if (mPlayScene == nullptr) 
+		//{
+		//	mPlayScene = mScenes[(UINT)eSceneType::Logo];
+		//}
+		//else
+		//{
 			mPlayScene->Exit();
-			mPlayScene = mScenes[(UINT)tyep];
-		}
+			mPlayScene = mScenes[(UINT)type];
+		//}
 		mPlayScene->Enter();
 	}
 }

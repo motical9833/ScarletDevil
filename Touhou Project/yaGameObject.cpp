@@ -1,20 +1,22 @@
 #include "yaGameObject.h"
-
+#include "yaTime.h"
 namespace ya
 {
 	GameObject::GameObject()
 		: mPos{ 0.0f, 0.0f }
-		, mScale{ 1.0f,1.0f }
+		, mScale{ 1.0f, 1.0f }
 		, mDead(false)
-		, mHp(0)
+		, mDeathTime(-10.0f)
+		,mDeathTimeOn(false)
 	{
 
  	}
-	GameObject::GameObject(Vector2 Position)
-		: mPos(Position)
-		, mScale{ 1.0f,1.0f }
+	GameObject::GameObject(Vector2 position)
+		: mPos(position)
+		, mScale{ 1.0f, 1.0f }
 		, mDead(false)
-		, mHp(0)
+		, mDeathTime(-10.0f)
+		, mDeathTimeOn(false)
 	{
 
 	}
@@ -35,8 +37,10 @@ namespace ya
 	}
 	void GameObject::Tick()
 	{
-		// 모든 컴포넌트 Tick 호출
-		for (Component* component:mComponents)
+		DeathLoop();
+
+		// 모든 컴포넌트를 Tick 호출
+		for (Component* component : mComponents)
 		{
 			if (component == nullptr)
 				continue;
@@ -46,7 +50,7 @@ namespace ya
 	}
 	void GameObject::Render(HDC hdc)
 	{
-		// 모든 컴포넌트 Render 호출
+		// 모든 컴포넌트를 Render 호출
 		for (Component* component : mComponents)
 		{
 			if (component == nullptr)
@@ -67,6 +71,15 @@ namespace ya
 	{
 
 	}
+	void GameObject::SetDeathTime(float time)
+	{
+		if (mDeathTime <= 0.0f)
+		{
+			mDeathTime = time;
+			mDeathTimeOn = true;
+		}
+	}
+
 	void GameObject::AddComponent(Component* component)
 	{
 		if (component == nullptr)
@@ -74,5 +87,14 @@ namespace ya
 
 		mComponents.push_back(component);
 		component->mOwner = this;
+	}
+	void GameObject::DeathLoop()
+	{
+		if (mDeathTimeOn == true)
+		{
+			mDeathTime -= Time::DeltaTime();
+			if (mDeathTime <= 0.0f)
+				Death();
+		}
 	}
 }

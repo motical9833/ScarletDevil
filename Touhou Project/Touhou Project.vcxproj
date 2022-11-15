@@ -148,6 +148,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestHeder.h" />
     <ClInclude Include="WindowAPI.h" />
+    <ClInclude Include="yaAnimation.h" />
     <ClInclude Include="yaAnimator.h" />
     <ClInclude Include="yaApplication.h" />
     <ClInclude Include="yaBgImageObject.h" />
@@ -175,6 +176,7 @@
   <ItemGroup>
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Touhou Project.cpp" />
+    <ClCompile Include="yaAnimation.cpp" />
     <ClCompile Include="yaAnimator.cpp" />
     <ClCompile Include="yaApplication.cpp" />
     <ClCompile Include="yaBgImageObject.cpp" />

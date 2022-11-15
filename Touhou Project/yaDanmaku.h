@@ -1,5 +1,6 @@
 #pragma once
 #include "yaGameObject.h"
+#include "yaImage.h"
 namespace ya
 {
 	class Danmaku : public GameObject
@@ -18,6 +19,10 @@ namespace ya
 	private:
 		float mSpeed;
 		float mTime;
+
+	public:
+		//Image* image;
+		Vector2 mDir;
+		Vector2 mDestPos;
 	};
 }
-

@@ -19,9 +19,16 @@ namespace ya
 	void PlayScene::Initialize()
 	{
 		AddGameObject(new Player(),eColliderLayer::Player);
-		AddGameObject(new Monster(), eColliderLayer::Monster);
 
-		ya::object::Instantiate<Monster>(eColliderLayer::Monster);
+		//Monster* monster = new Monster();
+
+		//AddGameObject(monster, eColliderLayer::Monster);
+
+		//mon = monster;
+
+	    //AddGameObject(new Monster(), eColliderLayer::Monster);
+
+		//ya::object::Instantiate<Monster>(eColliderLayer::Monster);
 
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Projecttile, true);
@@ -33,6 +40,8 @@ namespace ya
 		{
 			SceneManager::ChangeScene(eSceneType::End);
 		}
+		 
+		//ya::object::Destory(mon, 3.0f);
 	}
 	void PlayScene::Render(HDC hdc)
 	{

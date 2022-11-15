@@ -1,6 +1,9 @@
 #include "yaMonster.h"
+
 #include "yaTime.h"
 #include "yaSceneManager.h"
+#include "yaInput.h"
+#include "yaDanmaku.h"
 #include "yaScene.h"
 #include "yaImage.h"
 #include "yaResources.h"
@@ -10,25 +13,11 @@
 namespace ya
 {
 	Monster::Monster()
+		: mTime(0.0f)
 	{
 		SetName(L"Monster");
-		SetPos({ 1600 / 2, 900 / 2 });
-		SetScale({ 3.0f,3.0f });
-
-		if (mImage == nullptr)
-		{
-			mImage = Resources::Load<Image>(L"Monster"
-				,L"..\\Resources\\Image\\Enemys_Img\\Enemy.bmp");
-		}
-
-		AddComponent(new Animator());
-		AddComponent(new Collider());
-	}
-	Monster::Monster(Vector2 position)
-	{
-		SetName(L"Monster");
-		SetPos(position);
-		SetScale({ 3.0f,3.0f });
+		SetPos({ 1600 / 2, 300 / 2 });
+		SetScale({ 3.0f, 3.0f });
 
 		if (mImage == nullptr)
 		{
@@ -39,6 +28,29 @@ namespace ya
 		AddComponent(new Animator());
 		AddComponent(new Collider());
 	}
+
+	Monster::Monster(Vector2 position)
+		: mTime(0.0f)
+	{
+		SetName(L"Monster");
+		SetPos(position);
+		SetScale({ 3.0f, 3.0f });
+
+		if (mImage == nullptr)
+		{
+			mImage = Resources::Load<Image>(L"Monster"
+				, L"..\\Resources\\Image\\Enemys_Img\\Enemy.bmp");
+		}
+
+		AddComponent(new Animator());
+		AddComponent(new Collider());
+	}
+
+	Monster::~Monster()
+	{
+
+	}
+
 	void Monster::Tick()
 	{
 		GameObject::Tick();
@@ -46,7 +58,17 @@ namespace ya
 		Vector2 pos = GetPos();
 
 		SetPos(pos);
+
+		//mTime += Time::DeltaTime();
+
+		//if (mTime > 5.0f)
+		//{
+		//	pos.x -= 30;
+		//	SetPos(pos);
+		//	mTime = 0.0f;
+		//}
 	}
+
 	void Monster::Render(HDC hdc)
 	{
 		Vector2 pos = GetPos();
@@ -60,6 +82,7 @@ namespace ya
 		rect.x = mImage->GetWidth() * scale.x;
 		rect.y = mImage->GetHeight() * scale.y;
 
+
 		TransparentBlt(hdc, finalPos.x, finalPos.y, rect.x, rect.y
 			, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight()
 			, RGB(255, 0, 255));
@@ -68,14 +91,11 @@ namespace ya
 	}
 	void Monster::OnCollisionEnter(Collider* other)
 	{
-
 	}
 	void Monster::OnCollisionStay(Collider* other)
 	{
-
 	}
 	void Monster::OnCollisionExit(Collider* other)
 	{
-
 	}
 }

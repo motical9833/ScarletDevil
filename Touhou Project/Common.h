@@ -9,6 +9,8 @@
 #include <bitset>
 #include <set>
 
+#include <functional>
+
 #include "def.h"
 #include "Maths.h"
 

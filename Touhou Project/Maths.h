@@ -1,4 +1,6 @@
 #pragma once
+#include <math.h>
+#define PI 3.141592
 
 namespace ya
 {
@@ -52,5 +54,48 @@ namespace ya
 			return temp;
 		}
 
+		void operator +=(const Vector2& other)
+		{
+			x += other.x;
+			y += other.y;
+		}
+
+		float Length()
+		{
+			return sqrtf(x * x + y * y);
+		}
+
+		Vector2& Normailize()
+		{
+			float length = Length();
+
+			x /= length;
+			y /= length;
+
+			return *this;
+		}
 	};
+
+	namespace math
+	{
+		inline float DegreeToRadian(float degree)
+		{
+			return degree * PI / 180.0f;
+		}
+
+		inline float RadianToDegree(float radian)
+		{
+			return radian * (180.0f / PI);
+		}
+
+		inline Vector2 Rotate(const Vector2 value, float degree)
+		{
+			Vector2 ret = Vector2::Zero;
+			float radian = DegreeToRadian(degree);
+			ret.x = value.x * cosf(radian) - value.y * sinf(radian);
+			ret.y = value.x * sinf(radian) + value.y * cosf(radian);
+
+			return ret;
+		}
+	}
 }

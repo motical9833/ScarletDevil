@@ -1,6 +1,5 @@
 #pragma once
 #include "yaScene.h"
-
 namespace ya
 {
 	class LogoScene : public Scene
@@ -18,6 +17,7 @@ namespace ya
 		virtual void Exit();
 
 	private:
+
 	};
 
 }

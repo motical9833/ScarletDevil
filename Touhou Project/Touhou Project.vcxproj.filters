@@ -147,6 +147,9 @@
     <ClInclude Include="yaObject.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
+    <ClInclude Include="yaAnimation.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Touhou Project.rc">
@@ -233,6 +236,9 @@
     </ClCompile>
     <ClCompile Include="yaDanmaku.cpp">
       <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaAnimation.cpp">
+      <Filter>Engine\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

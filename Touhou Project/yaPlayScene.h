@@ -1,5 +1,6 @@
 #pragma once
 #include "yaScene.h"
+#include "yaMonster.h"
 
 namespace ya
 {
@@ -17,6 +18,6 @@ namespace ya
 		virtual void Exit();
 
 	private:
-
+		Monster* mon;
 	};
 }

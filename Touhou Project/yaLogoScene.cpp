@@ -16,6 +16,7 @@ namespace ya
 	}
 	void LogoScene::Initialize()
 	{
+		 
 
 		BgImageObject* bg = new BgImageObject();
 		bg->SetImage(L"LogoBG", L"BG_Img\\LogoBG.bmp");
@@ -23,8 +24,6 @@ namespace ya
 		bg->Initialize();
 		AddGameObject(bg,eColliderLayer::BackGround);
 		
-
-		//AddGameObject(new Player());
 
 	}
 	void LogoScene::Tick()
