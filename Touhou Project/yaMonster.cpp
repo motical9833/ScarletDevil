@@ -9,11 +9,14 @@
 #include "yaResources.h"
 #include "yaAnimator.h"
 #include "yaCollider.h"
+#include "yaPlayScene.h"
 
 namespace ya
 {
 	Monster::Monster()
 		: mTime(0.0f)
+		,firePos({0.0f,0.0f})
+		,pScene(nullptr)
 	{
 		SetName(L"Monster");
 		SetPos({ 1600 / 2, 300 / 2 });
@@ -27,6 +30,8 @@ namespace ya
 
 		AddComponent(new Animator());
 		AddComponent(new Collider());
+
+
 	}
 
 	Monster::Monster(Vector2 position)
@@ -59,6 +64,7 @@ namespace ya
 
 		SetPos(pos);
 
+
 		//mTime += Time::DeltaTime();
 
 		//if (mTime > 5.0f)
@@ -67,6 +73,20 @@ namespace ya
 		//	SetPos(pos);
 		//	mTime = 0.0f;
 		//}
+
+		
+		if (KEY_PREESE(eKeyCode::K))
+		{
+			mTime += Time::DeltaTime();
+
+			if (mTime > 0.1f)
+			{
+				Attack();
+
+				mTime = 0;
+			}
+		}
+
 	}
 
 	void Monster::Render(HDC hdc)
@@ -97,5 +117,25 @@ namespace ya
 	}
 	void Monster::OnCollisionExit(Collider* other)
 	{
+	}
+
+	void Monster::Attack()
+	{
+		for (size_t i = 0; i < 1024; i++)
+		{
+			if (pScene->danmaku[i]->IsDeath() == true)
+			{
+				DanmakuReset(pScene->danmaku[i], firePos);
+				break;
+			}
+		}
+	}
+	void Monster::DanmakuReset(Danmaku* danmaku, Vector2 pos)
+	{
+		Vector2 firePos = GetPos();
+		Vector2 missileScale = danmaku->GetScale();
+		danmaku->SetPos((firePos)-(missileScale / 2.0f));
+		danmaku->mDir += Vector2(0.0f, +1.0f);
+		danmaku->Alive();
 	}
 }

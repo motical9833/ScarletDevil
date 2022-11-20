@@ -17,7 +17,7 @@ namespace ya
 
 		AddComponent(col);
 
-		mDir += Vector2(0.0f, -1.0f);
+		mDir += Vector2(0.0f, 0.0f);
 	}
 	Danmaku::~Danmaku()
 	{

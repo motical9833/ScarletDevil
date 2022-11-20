@@ -6,6 +6,7 @@
 #include "yaCollisionManager.h"
 #include "yaBgImageObject.h"
 #include "yaObject.h"
+#include "yaDanmaku.h"
 namespace ya
 {
 	PlayScene::PlayScene()
@@ -20,18 +21,29 @@ namespace ya
 	{
 		AddGameObject(new Player(),eColliderLayer::Player);
 
-		//Monster* monster = new Monster();
-
-		//AddGameObject(monster, eColliderLayer::Monster);
+		Monster* monster = new Monster();
+		
+		monster->pScene = this;
+		AddGameObject(monster, eColliderLayer::Monster);
 
 		//mon = monster;
 
 	    //AddGameObject(new Monster(), eColliderLayer::Monster);
 
 		//ya::object::Instantiate<Monster>(eColliderLayer::Monster);
-
+		  
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Projecttile, true);
+
+		CollisionManager::SetLayer(eColliderLayer::Player, eColliderLayer::Monster_Projecttile, true);
+
+		Scene* playScene = SceneManager::GetScene();
+		for (size_t i = 0; i < 1024; i++)
+		{
+			danmaku[i] = new Danmaku();
+			playScene->AddGameObject(danmaku[i], eColliderLayer::Monster_Projecttile);
+			danmaku[i]->Death();
+		}
 	}
 	void PlayScene::Tick()
 	{
@@ -53,6 +65,7 @@ namespace ya
 		//글자출력
 		TextOut(hdc, 10, 30, szFloat, strLen);
 	}
+
 	void PlayScene::Enter()
 	{
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "yaScene.h"
 #include "yaMonster.h"
+#include "yaDanmaku.h"
+#include <array>
 
 namespace ya
 {
@@ -17,7 +19,11 @@ namespace ya
 		virtual void Enter();
 		virtual void Exit();
 
+		PlayScene* GetScene() { return this; }
+
+		 std::array <Danmaku*, 1024> danmaku;
+
 	private:
-		Monster* mon;
+
 	};
 }

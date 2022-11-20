@@ -218,10 +218,11 @@ namespace ya
 
 	void Player::DanmakuReset(Danmaku* danmaku, Vector2 pos[5])
 	{
-		Vector2 firePos = GetPos() + Vector2(100.0f, 100.0f);
+		Vector2 firePos = GetPos() + Vector2(1.0f, 1.0f);
 		//Vector2 playerScale = GetScale() / 2.0f;
 		Vector2 missileScale = danmaku->GetScale();
 		danmaku->SetPos((firePos)-(missileScale / 2.0f));
+		danmaku->mDir += Vector2(0.0f, -1.0f);
 		danmaku->Alive();
 	}
 
