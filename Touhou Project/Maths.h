@@ -12,7 +12,7 @@ namespace ya
 		static Vector2 Left;
 		static Vector2 Up;
 		static Vector2 Down;
-
+		static Vector2 MinusOne;
 
 		float x;
 		float y;
@@ -54,11 +54,22 @@ namespace ya
 			return temp;
 		}
 
+		Vector2 operator *(const Vector2& other)
+		{
+			Vector2 temp;
+			temp.x = x * other.x;
+			temp.y = y * other.y;
+
+			return temp;
+		}
+
 		void operator +=(const Vector2& other)
 		{
 			x += other.x;
 			y += other.y;
 		}
+
+
 
 		float Length()
 		{

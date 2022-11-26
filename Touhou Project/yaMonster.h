@@ -4,6 +4,7 @@
 #include "yaDanmaku.h"
 #include "yaSceneManager.h"
 #include "yaPlayScene.h"
+
 namespace ya
 {
 	class Image;
@@ -22,15 +23,28 @@ namespace ya
 		virtual void OnCollisionExit(Collider* other) override;
 
 		
-		void Attack();
+		void NomalAttack();
 		void DanmakuReset(Danmaku* danmaku, Vector2 pos);
+		
+		Vector2 GetPlayerDir(Vector2 firePos, Vector2 targetPos);
+
+		Vector2 GetTargetPos()
+		{
+			GameObject* target = pScene->player;
+			return target->GetPos();
+		}
 
 		PlayScene* pScene;
 
 	private:
 		Image* mImage;
 		//Animator* mAnimator;
-		float mTime;
+		float attackTime;
+		float attackDelayTime;
+
+		int attackCount;
 		Vector2 firePos;
+		Vector2 dir;
+		//Vector2 mDanmakuDir;
 	};
 }

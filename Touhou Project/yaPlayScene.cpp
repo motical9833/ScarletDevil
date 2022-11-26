@@ -7,6 +7,8 @@
 #include "yaBgImageObject.h"
 #include "yaObject.h"
 #include "yaDanmaku.h"
+#include "yaResources.h"
+
 namespace ya
 {
 	PlayScene::PlayScene()
@@ -19,7 +21,9 @@ namespace ya
 	}
 	void PlayScene::Initialize()
 	{
-		AddGameObject(new Player(),eColliderLayer::Player);
+		player = new Player();
+
+	    AddGameObject(player,eColliderLayer::Player);
 
 		Monster* monster = new Monster();
 		
@@ -43,6 +47,8 @@ namespace ya
 			danmaku[i] = new Danmaku();
 			playScene->AddGameObject(danmaku[i], eColliderLayer::Monster_Projecttile);
 			danmaku[i]->Death();
+			danmaku[i]->mImage = Resources::Load<Image>(L"EnemyDanmaku_01", L"..\\Resources\\Image\\Enemys_Img\\Enemy_Danmaku.bmp");
+			danmaku[i]->SetSrc(16, 15);
 		}
 	}
 	void PlayScene::Tick()

@@ -23,6 +23,8 @@ namespace ya
 
 		 std::array <Danmaku*, 1024> danmaku;
 
+
+		 GameObject* player;
 	private:
 
 	};

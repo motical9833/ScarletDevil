@@ -81,9 +81,6 @@
     <ClInclude Include="yaApplication.h">
       <Filter>Engine\High Level Interface</Filter>
     </ClInclude>
-    <ClInclude Include="yaGameObject.h">
-      <Filter>Engine\GameObject\Base</Filter>
-    </ClInclude>
     <ClInclude Include="yaSceneManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>
@@ -117,9 +114,6 @@
     <ClInclude Include="yaCollider.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="yaComponent.h">
-      <Filter>Engine\Component\Base</Filter>
-    </ClInclude>
     <ClInclude Include="yaTitleScene.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
@@ -149,6 +143,12 @@
     </ClInclude>
     <ClInclude Include="yaAnimation.h">
       <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="yaComponent.h">
+      <Filter>Engine\Component\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="yaGameObject.h">
+      <Filter>Engine\GameObject\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

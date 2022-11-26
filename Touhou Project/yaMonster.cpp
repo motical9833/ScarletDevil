@@ -1,5 +1,4 @@
 #include "yaMonster.h"
-
 #include "yaTime.h"
 #include "yaSceneManager.h"
 #include "yaInput.h"
@@ -11,12 +10,17 @@
 #include "yaCollider.h"
 #include "yaPlayScene.h"
 
+#define ATTACKMAXCOUNT 3
+
 namespace ya
 {
 	Monster::Monster()
-		: mTime(0.0f)
+		: attackTime(0.0f)
 		,firePos({0.0f,0.0f})
 		,pScene(nullptr)
+		,attackDelayTime(0.0f)
+		,attackCount(0)
+		,dir({0.0f,0.0f})
 	{
 		SetName(L"Monster");
 		SetPos({ 1600 / 2, 300 / 2 });
@@ -31,11 +35,11 @@ namespace ya
 		AddComponent(new Animator());
 		AddComponent(new Collider());
 
-
 	}
 
 	Monster::Monster(Vector2 position)
-		: mTime(0.0f)
+		: attackTime(0.0f)
+		, attackDelayTime(0.0f)
 	{
 		SetName(L"Monster");
 		SetPos(position);
@@ -64,6 +68,27 @@ namespace ya
 
 		SetPos(pos);
 
+		attackTime += Time::DeltaTime();
+
+
+		if (attackTime > 1.0f)
+		{
+			attackDelayTime += Time::DeltaTime();
+
+			if (attackCount == ATTACKMAXCOUNT)
+			{
+				attackTime = 0;
+				attackCount = 0;
+
+			}
+
+			if (attackDelayTime > 0.1f)
+			{
+				NomalAttack();
+				attackDelayTime = 0;
+				attackCount++;
+			}
+		}
 
 		//mTime += Time::DeltaTime();
 
@@ -73,19 +98,6 @@ namespace ya
 		//	SetPos(pos);
 		//	mTime = 0.0f;
 		//}
-
-		
-		if (KEY_PREESE(eKeyCode::K))
-		{
-			mTime += Time::DeltaTime();
-
-			if (mTime > 0.1f)
-			{
-				Attack();
-
-				mTime = 0;
-			}
-		}
 
 	}
 
@@ -119,23 +131,39 @@ namespace ya
 	{
 	}
 
-	void Monster::Attack()
+	void Monster::NomalAttack()
 	{
+
 		for (size_t i = 0; i < 1024; i++)
 		{
 			if (pScene->danmaku[i]->IsDeath() == true)
 			{
 				DanmakuReset(pScene->danmaku[i], firePos);
-				break;
+				pScene->danmaku[i]->SetSpeed(300);
+					break;
 			}
 		}
 	}
 	void Monster::DanmakuReset(Danmaku* danmaku, Vector2 pos)
 	{
 		Vector2 firePos = GetPos();
+		Vector2 playerPos = GetTargetPos();
+
+		Vector2 dir = GetPlayerDir(firePos, playerPos);
+
+
+		danmaku->mDir = dir;
 		Vector2 missileScale = danmaku->GetScale();
 		danmaku->SetPos((firePos)-(missileScale / 2.0f));
-		danmaku->mDir += Vector2(0.0f, +1.0f);
 		danmaku->Alive();
+	}
+
+	Vector2 Monster::GetPlayerDir(Vector2 firePos, Vector2 targetPos)
+	{
+		Vector2 dir = firePos - targetPos;
+		dir.Normailize();
+		dir = Vector2::MinusOne * dir;
+
+		return dir;
 	}
 }

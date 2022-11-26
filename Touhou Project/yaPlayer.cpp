@@ -9,14 +9,20 @@
 #include "yaAnimator.h"
 #include "yaCollider.h"
 
+#define DANMAKUSPEED 800.0f
+#define BOMBSPEED 200.0f
 
 namespace ya
 {
 	Player::Player()
 		:mSpeed(1.0f)
-		,mTime(0.0f)
+		,nomalTime(0.0f)
+		,bonusTime(0.0f)
 		,danmakuLevel(1)
+		,level(1)
 		,mCount(0)
+		,danmakuTime{0.3f,1.0f}
+		,bombOnOff(true)
 	{
 		SetName(L"Player");
 		SetPos({ 100.0f,100.0f });
@@ -24,11 +30,11 @@ namespace ya
 		
 		if (mImage == nullptr)
 		{
-			/*BgImageObject* bg = new BgImageObject();
-			bg->SetImage(L"TitleBG", L"BGImg\\TitleBG.bmp");
-			bg->Initialize();
+			//BgImageObject* bg = new BgImageObject();
+			//bg->SetImage(L"TitleBG", L"BGImg\\TitleBG.bmp");
+			//bg->Initialize();
 
-			AddGameObject(bg);*/
+			//AddGameObject(bg);
 
 			mImage = Resources::Load<Image>
 				(L"Player", L"..\\Resources\\Image\\Player_Img\\Reimu\\Player.bmp");
@@ -60,18 +66,59 @@ namespace ya
 		AddComponent(new Collider());
 
 		Scene* playScene = SceneManager::GetScene();
-		for (size_t i = 0; i < 1024; i++)
+		//for (size_t i = 0; i < 1024; i++)
+		//{
+		//	danmaku[i] = new Danmaku();
+		//	playScene->AddGameObject(danmaku[i], eColliderLayer::Player_Projecttile);
+		//	danmaku[i]->Death();
+		//}
+
+		for (size_t i = 0; i < 3; i++)
 		{
-			danmaku[i] = new Danmaku();
-			playScene->AddGameObject(danmaku[i], eColliderLayer::Player_Projecttile);
-			danmaku[i]->Death();
+			for (size_t j = 0; j < 500; j++)
+			{
+				pDanmaku[i][j] = new Danmaku();
+				playScene->AddGameObject(pDanmaku[i][j], eColliderLayer::Player_Projecttile);
+				pDanmaku[i][j]->SetSpeed(1500);
+				pDanmaku[i][j]->Death();
+			}
 		}
+
+		for (size_t j = 0; j < 500; j++)
+		{
+			pDanmaku[0][j]->mImage = Resources::Load<Image>
+				(L"Danmaku_2001", L"..\\Resources\\Image\\Player_Img\\Marisa\\Danmaku_2001.bmp");
+			pDanmaku[0][j]->SetSrc(14, 30);
+
+			pDanmaku[1][j]->mImage = Resources::Load<Image>
+				(L"Danmaku_2002", L"..\\Resources\\Image\\Player_Img\\Marisa\\Danmaku_2002.bmp");
+			pDanmaku[1][j]->SetSrc(14, 17);
+
+			pDanmaku[2][j]->mImage = Resources::Load<Image>
+				(L"Danmaku_2003", L"..\\Resources\\Image\\Player_Img\\Marisa\\Danmaku_2003.bmp");
+			pDanmaku[2][j]->SetSrc(15,48);
+		}
+
 		mCoff = 0.1f;
 
-		for (size_t i = 0; i < 5; i++)
+		for (size_t i = 0; i < 24; i++)
+		{
+			bombDanmaku[i] = new Danmaku();
+			playScene->AddGameObject(bombDanmaku[i], eColliderLayer::Player_Projecttile);
+			bombDanmaku[i]->Death();
+		}
+
+		for (size_t i = 0; i < 3; i++)
 		{
 			firePos[i] = Vector2(0.0f, 0.0f);
 		}
+
+		fireAngle[0] = Vector2(0.0f, -1.0f);
+		fireAngle[1] = Vector2(0.1f, -1.0f);
+		fireAngle[2] = Vector2(-0.1f, -1.0f);
+
+		mDanmakuDir = Vector2::One;
+
 	}
 	Player::~Player()
 	{
@@ -83,6 +130,16 @@ namespace ya
 
 		Vector2 pos = GetPos();
 
+		if (bombOnOff == false)
+		{
+			bombTime += Time::DeltaTime();
+
+			if (bombTime > 5)
+			{
+				bombOnOff = true;
+				bombTime = 0;
+			}
+		}
 
 		if (KEY_PREESE(eKeyCode::W))
 		{
@@ -121,33 +178,50 @@ namespace ya
 
 		if (KEY_PREESE(eKeyCode::J))
 		{
-			mTime += Time::DeltaTime();
+			nomalTime += Time::DeltaTime();
+			bonusTime += Time::DeltaTime();
 
-			if (mTime > 0.1f)
+			if (nomalTime > 0.1f)
 			{
-				Attack();
+				NomalAttack();
 
-				mTime = 0;
+				nomalTime = 0;
 			}
+
+			if (bonusTime > danmakuTime[1] && KEY_PREESE(eKeyCode::H) == NULL)
+			{
+				BonusAttack();
+
+				bonusTime = 0;
+			}
+			else if (bonusTime > danmakuTime[1] && KEY_PREESE(eKeyCode::H) != NULL)
+			{
+				MiddleAttack();
+				
+				bonusTime = 0;
+			}
+		}
+
+		if (KEY_PREESE(eKeyCode::M))
+		{
+			bombTime += Time::DeltaTime();
+
+			if (bombOnOff)
+			{
+				BombAttack();
+
+				bombOnOff = false;
+			}
+		}
+		if (KEY_DOWN(eKeyCode::P))
+		{
+			if (level == 8)
+				return;
+
+			DanmakuLevelUP();
 		}
 		SetPos(pos);
 	}
-
-	//Danmaku* danmaku = new Danmaku();
-
-//Scene* playScene = SceneManager::GetPlayScene();
-//playScene->AddGameObject(danmaku, eColliderLayer::Player_Projecttile);
-
-//Vector2 playerPos = GetPos();
-//Vector2 playerScale = GetScale() / 2.0f;
-//Vector2 missileScale = danmaku->GetScale();
-
-//danmaku->SetPos((playerPos + playerScale) - (missileScale / 2.0f));
-//danmaku->mDestPos = Vector2::One; // = Input::GetMousePos();
-
-//danmaku->mDir = Vector2(mCoff, -1.0f + mCoff);
-//mCoff -= 0.1f;
-
 
 	void Player::Render(HDC hdc)
 	{
@@ -199,35 +273,115 @@ namespace ya
 	{
 
 	}
-	void Player::Attack()
+
+	void Player::NomalAttack()
 	{
-		for (size_t i = 0; i < 1024; i++)
+
+		for (size_t i = 0; i < danmakuLevel; i++)
 		{
-			if (danmaku[i]->IsDeath() == true && danmakuLevel == 1)
+			for (size_t j = 0; j < 1024; j++)
 			{
-				DanmakuReset(danmaku[i],firePos);
-				break;
-			}
-			else if (danmaku[i]->IsDeath() == true && danmakuLevel == 2)
-			{
-				DanmakuReset(danmaku[i],firePos);
-				mCount++;
+				if (pDanmaku[0][j]->IsDeath() == true && danmakuLevel == 1)
+				{
+					firePos[0] = GetPos();
+
+					DanmakuReset(pDanmaku[0][j], firePos[i],fireAngle[0]);
+					break;
+				}
+				else if (pDanmaku[0][j]->IsDeath() == true && danmakuLevel == 2)
+				{
+					firePos[0] = GetPos() + Vector2(20.0f, 0.0f);
+					firePos[1] = GetPos() + Vector2(-20.0f, 0.0f);
+
+					DanmakuReset(pDanmaku[0][j], firePos[i], fireAngle[0]);
+					break;
+				}
+				else if (pDanmaku[0][j]->IsDeath() == true && danmakuLevel == 3)
+				{
+					firePos[0] = GetPos();
+					firePos[1] = GetPos();
+					firePos[2] = GetPos();
+
+					DanmakuReset(pDanmaku[0][j], firePos[i], fireAngle[i]);
+					break;
+				}
 			}
 		}
 	}
 
-	void Player::DanmakuReset(Danmaku* danmaku, Vector2 pos[5])
+	void Player::BonusAttack()
 	{
-		Vector2 firePos = GetPos() + Vector2(1.0f, 1.0f);
-		//Vector2 playerScale = GetScale() / 2.0f;
+		firePos[1] = GetPos() + Vector2(60.0f, 0.0f);
+		firePos[2] = GetPos() + Vector2(-60.0f, 0.0f);
+
+		for (size_t i = 0; i < 2; i++)
+		{
+			for (size_t j = 0; j < 1024; j++)
+			{
+				if (pDanmaku[1][j]->IsDeath() == true)
+				{
+					DanmakuReset(pDanmaku[1][j], firePos[i+1],fireAngle[0]);
+					break;
+				}
+			}
+		}
+	}
+
+	void Player::MiddleAttack()
+	{
+		firePos[1] = GetPos();
+
+		for (size_t i = 0; i < 2; i++)
+		{
+		}
+
+		for (size_t j = 0; j < 1024; j++)
+		{
+			if (pDanmaku[2][j]->IsDeath() == true)
+			{
+				DanmakuReset(pDanmaku[2][j], firePos[1], fireAngle[0]);
+				break;
+			}
+		}
+	}
+
+	void Player::BombAttack()
+	{
+		firePos[0] = GetPos();
+
+		for (size_t i = 0; i < 3; i++)
+		{
+			for (size_t j = 0; j < 8; j++)
+			{
+				DanmakuReset(bombDanmaku[j + (i* 8)], firePos[0], bombAngle[j]);
+				bombDanmaku[j + (i * 8)]->mDestPos = Vector2::One;
+				
+				mDanmakuDir = math::Rotate(mDanmakuDir, static_cast<float>(i) - 45.0f);
+				bombDanmaku[j + (i * 8)]->mDir = mDanmakuDir;
+				bombDanmaku[j + (i * 8)]->SetSpeed(BOMBSPEED);
+				
+			}
+		}
+	}
+
+	void Player::DanmakuReset(Danmaku* danmaku, Vector2 pos,Vector2 angle)
+	{
 		Vector2 missileScale = danmaku->GetScale();
-		danmaku->SetPos((firePos)-(missileScale / 2.0f));
-		danmaku->mDir += Vector2(0.0f, -1.0f);
+		danmaku->SetPos((pos) - (missileScale / 2.0f));
+		danmaku->mDir = angle;
 		danmaku->Alive();
 	}
 
-	void Player::DanmakuLevel(int level)
+	void Player::DanmakuLevelUP()
 	{
-		
+		level++;
+		if (level % 2 == 0)
+		{
+			danmakuTime[1] -= 0.2f;
+		}
+		if (level % 5 == 3)
+		{
+			danmakuLevel++;
+		}
 	}
 }
