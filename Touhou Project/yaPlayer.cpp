@@ -130,6 +130,7 @@ namespace ya
 
 		Vector2 pos = GetPos();
 
+
 		if (bombOnOff == false)
 		{
 			bombTime += Time::DeltaTime();

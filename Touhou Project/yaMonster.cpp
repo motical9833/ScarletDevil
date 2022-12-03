@@ -9,18 +9,19 @@
 #include "yaAnimator.h"
 #include "yaCollider.h"
 #include "yaPlayScene.h"
+#include <cstdlib>
 
-#define ATTACKMAXCOUNT 3
+
+
 
 namespace ya
 {
 	Monster::Monster()
 		: attackTime(0.0f)
-		,firePos({0.0f,0.0f})
 		,pScene(nullptr)
 		,attackDelayTime(0.0f)
 		,attackCount(0)
-		,dir({0.0f,0.0f})
+		,mDanmakudir({1.0f,1.0f})
 	{
 		SetName(L"Monster");
 		SetPos({ 1600 / 2, 300 / 2 });
@@ -35,6 +36,7 @@ namespace ya
 		AddComponent(new Animator());
 		AddComponent(new Collider());
 
+		SetChanFireAngle();
 	}
 
 	Monster::Monster(Vector2 position)
@@ -53,6 +55,16 @@ namespace ya
 
 		AddComponent(new Animator());
 		AddComponent(new Collider());
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			for (size_t j = 0; j < 10; j++)
+			{
+				fireAngle[i][j] = Vector2::Zero;
+			}
+		}
+
+		SetChanFireAngle();
 	}
 
 	Monster::~Monster()
@@ -66,39 +78,25 @@ namespace ya
 
 		Vector2 pos = GetPos();
 
+
+		//pos.x += 50.0f * Time::DeltaTime();
+
 		SetPos(pos);
 
 		attackTime += Time::DeltaTime();
 
 
-		if (attackTime > 1.0f)
+		if (attackTime > 2.0f)
 		{
-			attackDelayTime += Time::DeltaTime();
-
-			if (attackCount == ATTACKMAXCOUNT)
-			{
-				attackTime = 0;
-				attackCount = 0;
-
-			}
-
-			if (attackDelayTime > 0.1f)
-			{
-				NomalAttack();
-				attackDelayTime = 0;
-				attackCount++;
-			}
+			ChenSpellCard_A();
+			attackTime = 0;
 		}
 
-		//mTime += Time::DeltaTime();
 
-		//if (mTime > 5.0f)
-		//{
-		//	pos.x -= 30;
-		//	SetPos(pos);
-		//	mTime = 0.0f;
-		//}
-
+		if (KEY_DOWN(eKeyCode::T))
+		{
+			NomalAttack_Three();
+		}
 	}
 
 	void Monster::Render(HDC hdc)
@@ -129,33 +127,196 @@ namespace ya
 	}
 	void Monster::OnCollisionExit(Collider* other)
 	{
-	}
+	}	
 
-	void Monster::NomalAttack()
+	void Monster::BgDanmakuSetting(PlayScene* scene,Vector2 dir,int speedMul,int speed)
 	{
-
-		for (size_t i = 0; i < 1024; i++)
+		for (size_t j = 0; j < 1024; j++)
 		{
-			if (pScene->danmaku[i]->IsDeath() == true)
+			if (scene->danmaku[j]->IsDeath() == true)
 			{
-				DanmakuReset(pScene->danmaku[i], firePos);
-				pScene->danmaku[i]->SetSpeed(300);
-					break;
+				DanmakuReset(scene->danmaku[j],dir);
+				scene->danmaku[j]->SetSpeed(speed + (speedMul * 20));
+				break;
 			}
 		}
 	}
-	void Monster::DanmakuReset(Danmaku* danmaku, Vector2 pos)
+
+
+
+
+	void Monster::NomalAttack_One()
 	{
 		Vector2 firePos = GetPos();
 		Vector2 playerPos = GetTargetPos();
-
 		Vector2 dir = GetPlayerDir(firePos, playerPos);
 
+		for (size_t i = 0; i < 3; i++)
+		{
+			BgDanmakuSetting(pScene, dir, i,300);
+		}
+	}
 
+	void Monster::NomalAttack_Two()
+	{
+		fireAngle[0][0] = Vector2(0.0f, 1.0f);
+		fireAngle[0][1] = Vector2(0.1f, 1.0f);
+		fireAngle[0][2] = Vector2(-0.1f, 1.0f);
+
+		Vector2 firePos = GetPos();
+		Vector2 playerPos = GetTargetPos();
+		Vector2 dir = GetPlayerDir(firePos, playerPos);
+
+		for (size_t i = 0; i < 7; i++)
+		{
+			BgDanmakuSetting(pScene, fireAngle[0][i], i,300);
+		}
+	}
+
+	void Monster::NomalAttack_Three()
+	{
+
+		for (size_t i = 0; i < 8; i++)
+		{
+			BgDanmakuSetting(pScene, i);
+		}
+	}
+
+
+	void Monster::ChenNomalAttack_A()
+	{
+		int a = 0;
+
+		for (size_t i = 0; i < 6; i++)
+		{
+			if (i / 2 >= 1 && i % 2 == 1)
+			{
+				a++;
+			}
+
+			BgDanmakuSetting(pScene, fireAngle[0][i], a, 150);
+			BgDanmakuSetting(pScene, fireAngle[1][i], a, 150);
+			BgDanmakuSetting(pScene, fireAngle[2][i], a, 150);
+		}
+	}
+
+	void Monster::ChenNomalAttack_B()
+	{
+
+		for (size_t i = 0; i < 4; i++)
+		{
+			BgDanmakuSetting(pScene, fireAngle[3][0], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][1], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][2], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][3], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][4], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][5], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][6], i, 300);
+			BgDanmakuSetting(pScene, fireAngle[3][7], i, 300);
+		}
+	}
+
+	void Monster::ChenSpellCard_A()
+	{
+		for (size_t j = 0; j < 2; j++)
+		{
+			for (size_t i = 0; i < 10; i++)
+			{
+				ChenSpellCard_A_Setting(pScene, fireAngle[4][i], j, 50,1);
+			}
+		}
+	}
+
+	void Monster::ChenSpellCard_A_Setting(PlayScene* scene, Vector2 dir, int speedMul, int speed,float stopTime)
+	{
+		for (size_t j = 0; j < 1024; j++)
+		{
+			if (scene->danmaku[j]->IsDeath() == true)
+			{
+				DanmakuReset(scene->danmaku[j], dir);
+				scene->danmaku[j]->SetSpeed(speed + (speedMul * 50));
+				scene->danmaku[j]->SetStop(stopTime,100);
+				scene->danmaku[j]->SetRemoveSpeed(100.0f);
+				scene->danmaku[j]->SetPlusDir(Vector2(0.25f,1.0f));
+				scene->danmaku[j]->SetRotBool(true);
+				break;
+			}
+		}
+	}
+
+	void Monster::BgDanmakuSetting(PlayScene* scene,int cnt)
+	{
+		for (size_t i = 0; i < 1024; i++)
+		{
+			if (scene->danmaku[i]->IsDeath() == true)
+			{
+				Vector2 missileScale = scene->danmaku[i]->GetScale();
+				scene->danmaku[i]->SetPos((GetPos()) - (missileScale / 2.0f));
+				scene->danmaku[i]->mDestPos = Vector2::One;
+
+				mDanmakudir = math::Rotate(mDanmakudir, static_cast<float>(cnt) - 45.0f);
+				scene->danmaku[i]->mDir = mDanmakudir;
+				scene->danmaku[i]->SetSpeed(300);
+				scene->danmaku[i]->Alive();
+				break;
+			}
+		}
+	}
+
+	void Monster::DanmakuReset(Danmaku* danmaku, Vector2 dir)
+	{
 		danmaku->mDir = dir;
 		Vector2 missileScale = danmaku->GetScale();
-		danmaku->SetPos((firePos)-(missileScale / 2.0f));
+		danmaku->SetPos((GetPos())-(missileScale / 2.0f));
 		danmaku->Alive();
+	}
+
+	 
+	void Monster::SetChanFireAngle()
+	{
+		fireAngle[0][0] = Vector2(0.0f, 1.0f);
+		fireAngle[0][1] = Vector2(0.2f, 1.0f);
+		fireAngle[0][2] = Vector2(-0.2f, 1.0f);
+		fireAngle[0][3] = Vector2(-0.1f, 1.0f);
+		fireAngle[0][4] = Vector2(0.1f, 1.0f);
+		fireAngle[0][5] = Vector2(0.0f, 1.0f);
+
+		fireAngle[1][0] = Vector2(0.75f, -0.75f);
+		fireAngle[1][1] = Vector2(0.95f, -0.75f);
+		fireAngle[1][2] = Vector2(0.60f, -0.75f);
+		fireAngle[1][3] = Vector2(0.65f, -0.75f);
+		fireAngle[1][4] = Vector2(0.85f, -0.75f);
+		fireAngle[1][5] = Vector2(0.75f, -0.75f);
+
+		fireAngle[2][0] = Vector2(-0.75f, -0.75f);
+		fireAngle[2][1] = Vector2(-0.95f, -0.75f);
+		fireAngle[2][2] = Vector2(-0.60f, -0.75f);
+		fireAngle[2][3] = Vector2(-0.65f, -0.75f);
+		fireAngle[2][4] = Vector2(-0.85f, -0.75f);
+		fireAngle[2][5] = Vector2(-0.75f, -0.75f);
+
+		//8각도
+		fireAngle[3][0] = Vector2(0.75f, 0.75f);
+		fireAngle[3][1] = Vector2(-0.75f, 0.75f);
+		fireAngle[3][2] = Vector2(0.75f, -0.75f);
+		fireAngle[3][3] = Vector2(-0.75f, -0.75f);
+		fireAngle[3][4] = Vector2(0.0f, 1.0f);
+		fireAngle[3][5] = Vector2(0.0f, -1.0f);
+		fireAngle[3][6] = Vector2(0.5f, 0.0f);
+		fireAngle[3][7] = Vector2(-0.5f, 0.0f);
+
+		//10각도
+		fireAngle[4][0] = Vector2(0.0f, -1.0f);
+		fireAngle[4][1] = Vector2(0.2f, -0.25f);
+		fireAngle[4][2] = Vector2(0.4f, -0.1f);
+		fireAngle[4][3] = Vector2(0.6f, 0.2f);
+		fireAngle[4][4] = Vector2(0.8f, 1.0f);
+		fireAngle[4][5] = Vector2(0.0f, 1.0f);
+		fireAngle[4][6] = Vector2(-0.8f, 1.0f);
+		fireAngle[4][7] = Vector2(-0.6f, 0.2f);
+		fireAngle[4][8] = Vector2(-0.4f, -0.1f);
+		fireAngle[4][9] = Vector2(-0.2f, -0.25f);
+
 	}
 
 	Vector2 Monster::GetPlayerDir(Vector2 firePos, Vector2 targetPos)
