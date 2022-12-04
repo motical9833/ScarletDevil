@@ -22,6 +22,8 @@ namespace ya
 		mScenes[(UINT)eSceneType::Play] = new PlayScene();
 		mScenes[(UINT)eSceneType::Play]->Initialize();
 
+		//pScene = dynamic_cast<PlayScene*>(mScenes[(UINT)eSceneType::Play]);
+
 		mScenes[(UINT)eSceneType::End] = new EndScene();
 		mScenes[(UINT)eSceneType::End]->Initialize();
 

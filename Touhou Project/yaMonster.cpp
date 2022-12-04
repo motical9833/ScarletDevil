@@ -37,6 +37,9 @@ namespace ya
 		AddComponent(new Collider());
 
 		SetChanFireAngle();
+
+		pScene = dynamic_cast<PlayScene*>(SceneManager::GetPlayScene());
+
 	}
 
 	Monster::Monster(Vector2 position)
@@ -69,7 +72,7 @@ namespace ya
 
 	Monster::~Monster()
 	{
-
+		
 	}
 
 	void Monster::Tick()
@@ -95,7 +98,7 @@ namespace ya
 
 		if (KEY_DOWN(eKeyCode::T))
 		{
-			NomalAttack_Three();
+			//NomalAttack_Three();
 		}
 	}
 

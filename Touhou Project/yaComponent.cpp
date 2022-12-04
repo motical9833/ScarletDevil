@@ -20,4 +20,8 @@ namespace ya
 	{
 
 	}
+	void Component::Initialize()
+	{
+
+	}
 }

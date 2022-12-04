@@ -2,15 +2,16 @@
 #include "yaSceneManager.h"
 #include "yaPlayer.h"
 #include "yaInput.h"
-#include "yaMonster.h"
 #include "yaCollisionManager.h"
 #include "yaBgImageObject.h"
 #include "yaObject.h"
 #include "yaDanmaku.h"
 #include "yaResources.h"
 
+
 namespace ya
 {
+
 	PlayScene::PlayScene()
 	{
 
@@ -23,18 +24,23 @@ namespace ya
 	{
 		player = new Player();
 
-	    AddGameObject(player,eColliderLayer::Player);
+		AddGameObject(player, eColliderLayer::Player);
 
-		Monster* monster = new Monster();
-		
-		monster->pScene = this;
-		AddGameObject(monster, eColliderLayer::Monster);
 
-		//mon = monster;
+		//Monster* monster = new Monster();
 
-	    //AddGameObject(new Monster(), eColliderLayer::Monster);
+		//monster->pScene = this;
 
-		//ya::object::Instantiate<Monster>(eColliderLayer::Monster);
+		//AddGameObject(monster, eColliderLayer::Monster);
+
+
+
+		for (size_t i = 0; i < 10; i++)
+		{
+			enemy[i] = new Monster();
+			AddGameObject(enemy[i], eColliderLayer::Monster);
+			enemy[i]->Death();
+		}
 		  
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Projecttile, true);
@@ -57,6 +63,11 @@ namespace ya
 		if (KEY_DOWN(eKeyCode::N))
 		{
 			SceneManager::ChangeScene(eSceneType::End);
+		}
+
+		if (KEY_DOWN(eKeyCode::P))
+		{
+			enemy[0]->Alive();
 		}
 		 
 		//ya::object::Destory(mon, 3.0f);

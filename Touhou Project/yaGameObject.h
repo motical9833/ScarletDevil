@@ -13,9 +13,9 @@ namespace ya
 		GameObject(Vector2 position);
 		virtual ~GameObject();
 
-		virtual void Initialize();
 		virtual void Tick();
 		virtual void Render(HDC hdc);
+		virtual void Initialize();
 
 		virtual void OnCollisionEnter(Collider* other);
 		virtual void OnCollisionStay(Collider* other);

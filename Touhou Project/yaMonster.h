@@ -48,6 +48,7 @@ namespace ya
 			return target->GetPos();
 		}
 
+		//PlayScene* pScene;
 		PlayScene* pScene;
 
 	private:

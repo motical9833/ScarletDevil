@@ -15,6 +15,7 @@ namespace ya
 
 		virtual void Tick();
 		virtual void Render(HDC hdc);
+		virtual void Initialize();
 
 		GameObject* GetOwner() { return mOwner; }
 

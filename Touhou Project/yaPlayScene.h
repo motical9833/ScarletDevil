@@ -1,11 +1,18 @@
 #pragma once
 #include "yaScene.h"
+#include "yaGameObject.h"
 #include "yaMonster.h"
 #include "yaDanmaku.h"
+#include "yaCollisionManager.h"
+#include "yaCollider.h"
 #include <array>
+
+using namespace std;
 
 namespace ya
 {
+
+
 	class PlayScene : public Scene
 	{
 	public:
@@ -21,10 +28,10 @@ namespace ya
 
 		PlayScene* GetScene() { return this; }
 
-		 std::array <Danmaku*, 1024> danmaku;
+		array <Danmaku*, 1024> danmaku;
+		array <GameObject*, 10> enemy;
 
-
-		 GameObject* player;
+		GameObject* player;
 	private:
 
 	};

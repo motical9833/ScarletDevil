@@ -33,7 +33,13 @@ namespace ya
 	}
 	void GameObject::Initialize()
 	{
+		for (Component* component : mComponents)
+		{
+			if (component == nullptr)
+				continue;
 
+			component->Initialize();
+		}
 	}
 	void GameObject::Tick()
 	{
