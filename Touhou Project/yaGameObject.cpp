@@ -45,6 +45,7 @@ namespace ya
 	{
 		DeathLoop();
 
+
 		// 모든 컴포넌트를 Tick 호출
 		for (Component* component : mComponents)
 		{

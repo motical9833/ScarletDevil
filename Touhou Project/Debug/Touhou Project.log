@@ -23,6 +23,6 @@ C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(119,51):
 C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(119,43): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(119,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(142,39): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(240,39): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaMonster.cpp(258,39): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\gilhu\source\repos\Touhou Project\Touhou Project\yaPlayer.cpp(281,24): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   Touhou Project.vcxproj -> C:\Users\gilhu\source\repos\Touhou Project\Debug\Touhou Project.exe

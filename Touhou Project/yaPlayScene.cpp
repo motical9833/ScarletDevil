@@ -27,14 +27,6 @@ namespace ya
 		AddGameObject(player, eColliderLayer::Player);
 
 
-		//Monster* monster = new Monster();
-
-		//monster->pScene = this;
-
-		//AddGameObject(monster, eColliderLayer::Monster);
-
-
-
 		for (size_t i = 0; i < 10; i++)
 		{
 			enemy[i] = new Monster();
@@ -48,6 +40,7 @@ namespace ya
 		CollisionManager::SetLayer(eColliderLayer::Player, eColliderLayer::Monster_Projecttile, true);
 
 		Scene* playScene = SceneManager::GetScene();
+
 		for (size_t i = 0; i < 1024; i++)
 		{
 			danmaku[i] = new Danmaku();
@@ -69,8 +62,6 @@ namespace ya
 		{
 			enemy[0]->Alive();
 		}
-		 
-		//ya::object::Destory(mon, 3.0f);
 	}
 	void PlayScene::Render(HDC hdc)
 	{

@@ -34,9 +34,15 @@ namespace ya
 
 		void ChenNomalAttack_A();
 		void ChenNomalAttack_B();
-
+		void ChenNomalAttack_C();
 		void ChenSpellCard_A();
+		void ChenSpellCard_B();
+		void ChenSPellCard_C();
+
 		void ChenSpellCard_A_Setting(PlayScene* scene, Vector2 dir, int speedMul, int speed, float stopTime);
+		void ChenSpellCard_B_Setting(PlayScene* scene, int cnt);
+		void ChenSpellCard_C_Setting(PlayScene* scene, int cnt);
+
 		void DanmakuReset(Danmaku* danmaku, Vector2 dir);
 		
 		void SetChanFireAngle();

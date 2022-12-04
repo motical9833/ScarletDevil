@@ -91,7 +91,7 @@ namespace ya
 
 		if (attackTime > 2.0f)
 		{
-			ChenSpellCard_A();
+			ChenSPellCard_C();
 			attackTime = 0;
 		}
 
@@ -156,30 +156,30 @@ namespace ya
 
 		for (size_t i = 0; i < 3; i++)
 		{
-			BgDanmakuSetting(pScene, dir, i,300);
+			BgDanmakuSetting(pScene, dir, i,200);
 		}
 	}
 
 	void Monster::NomalAttack_Two()
 	{
-		fireAngle[0][0] = Vector2(0.0f, 1.0f);
-		fireAngle[0][1] = Vector2(0.1f, 1.0f);
-		fireAngle[0][2] = Vector2(-0.1f, 1.0f);
+		fireAngle[0][0] = Vector2(0.0f, 0.0f);
+		fireAngle[0][1] = Vector2(0.1f, 0.0f);
+		fireAngle[0][2] = Vector2(-0.1f, 0.0f);
 
 		Vector2 firePos = GetPos();
 		Vector2 playerPos = GetTargetPos();
 		Vector2 dir = GetPlayerDir(firePos, playerPos);
 
-		for (size_t i = 0; i < 7; i++)
+		for (size_t i = 0; i < 3; i++)
 		{
-			BgDanmakuSetting(pScene, fireAngle[0][i], i,300);
+			BgDanmakuSetting(pScene, dir + fireAngle[0][i], 0,200);
 		}
 	}
 
 	void Monster::NomalAttack_Three()
 	{
 
-		for (size_t i = 0; i < 8; i++)
+		for (size_t i = 0; i < 9; i++)
 		{
 			BgDanmakuSetting(pScene, i);
 		}
@@ -208,15 +208,16 @@ namespace ya
 
 		for (size_t i = 0; i < 4; i++)
 		{
-			BgDanmakuSetting(pScene, fireAngle[3][0], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][1], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][2], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][3], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][4], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][5], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][6], i, 300);
-			BgDanmakuSetting(pScene, fireAngle[3][7], i, 300);
+			for (size_t j = 0; j < 8; j++)
+			{
+				BgDanmakuSetting(pScene, fireAngle[3][j], i, 300);
+			}
 		}
+	}
+
+	void Monster::ChenNomalAttack_C()
+	{
+
 	}
 
 	void Monster::ChenSpellCard_A()
@@ -229,6 +230,23 @@ namespace ya
 			}
 		}
 	}
+
+	void Monster::ChenSpellCard_B()
+	{
+		for (size_t i = 0; i < 12; i++)
+		{
+			ChenSpellCard_B_Setting(pScene, i);
+		}
+	}
+
+	void Monster::ChenSPellCard_C()
+	{
+		for (size_t i = 0; i < 9; i++)
+		{
+			BgDanmakuSetting(pScene, i);
+		}
+	}
+
 
 	void Monster::ChenSpellCard_A_Setting(PlayScene* scene, Vector2 dir, int speedMul, int speed,float stopTime)
 	{
@@ -246,6 +264,31 @@ namespace ya
 			}
 		}
 	}
+
+	void Monster::ChenSpellCard_B_Setting(PlayScene* scene,int cnt)
+	{
+		for (size_t i = 0; i < 1024; i++)
+		{
+			if (scene->danmaku[i]->IsDeath() == true)
+			{
+				Vector2 missileScale = scene->danmaku[i]->GetScale();
+				scene->danmaku[i]->SetPos((GetPos()) - (missileScale / 2.0f));
+				scene->danmaku[i]->mDestPos = Vector2::One;
+
+				mDanmakudir = math::Rotate(mDanmakudir, static_cast<float>(cnt) - 30.0f);
+				scene->danmaku[i]->mDir = mDanmakudir;
+				scene->danmaku[i]->SetSpeed(300);
+				scene->danmaku[i]->Alive();
+				break;
+			}
+		}
+	}
+
+	void Monster::ChenSpellCard_C_Setting(PlayScene* scene, int cnt)
+	{
+	}
+
+
 
 	void Monster::BgDanmakuSetting(PlayScene* scene,int cnt)
 	{

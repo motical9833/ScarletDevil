@@ -32,6 +32,7 @@ namespace ya
 		array <GameObject*, 10> enemy;
 
 		GameObject* player;
+
 	private:
 
 	};
