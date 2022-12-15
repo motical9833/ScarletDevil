@@ -150,6 +150,12 @@
     <ClInclude Include="yaGameObject.h">
       <Filter>Engine\GameObject\Base</Filter>
     </ClInclude>
+    <ClInclude Include="yaBossMonster.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMovePattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Touhou Project.rc">
@@ -239,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="yaAnimation.cpp">
       <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBossMonster.cpp">
+      <Filter>Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

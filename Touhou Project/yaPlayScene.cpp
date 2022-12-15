@@ -7,7 +7,7 @@
 #include "yaObject.h"
 #include "yaDanmaku.h"
 #include "yaResources.h"
-
+#include "yaBossMonster.h"
 
 namespace ya
 {
@@ -26,13 +26,15 @@ namespace ya
 
 		AddGameObject(player, eColliderLayer::Player);
 
-
-		for (size_t i = 0; i < 10; i++)
+		for (size_t i = 0; i < 1; i++)
 		{
 			enemy[i] = new Monster();
 			AddGameObject(enemy[i], eColliderLayer::Monster);
 			enemy[i]->Death();
 		}
+
+		boss = new BossMonster();
+		AddGameObject(boss, eColliderLayer::Monster);
 		  
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Projecttile, true);

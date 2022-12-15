@@ -11,7 +11,7 @@ namespace ya
 		:mSpeed(800.0f)
 		,mTime(0.0f)
 		,mDir({0.0f,0.0f})
-		,aliveTime(7.0f)
+		,aliveTime(10.0f)
 		,mImage(nullptr)
 		,wSrc(0)
 		,hSrc(0)
@@ -24,6 +24,7 @@ namespace ya
 		,reMoveSPeed(100.0f)
 		,plusDir({0.0f,0.0f})
 		,rotBool(false)
+		, targetPos({0.0f,0.0f})
 	{
 		SetPos({ 100.0f, 100.0f });
 		SetScale({ 20.0f, 20.0f });
@@ -59,17 +60,8 @@ namespace ya
 		Vector2 pos = GetPos();
 
 
-		//pos.y -= speed * Time::DeltaTime();
-
-		// 삼각함수를 이용한 회전
-		//mDir = PI / 2.0f;
-		//pos.x += speed * cosf(mDir) * Time::DeltaTime();
-		//pos.y -= speed * sinf(mDir) * Time::DeltaTime();
-		//Vector2 mousPos = Input::GetMousePos();
-
-		// 벡터를 이용한 회전
-		pos.y += mDir.y * mSpeed * Time::DeltaTime();
 		pos.x += mDir.x * mSpeed * Time::DeltaTime();
+		pos.y += mDir.y * mSpeed * Time::DeltaTime();
 		mDir.Normailize();
 
 		SetPos(pos);
@@ -78,26 +70,16 @@ namespace ya
 	}
 	void Danmaku::Render(HDC hdc)
 	{
-		//if (mImage != nullptr)
-		//{
-		//	GameObject::Render(hdc);
-		//	return;
-		//}
-
-		//Vector2 pos = GetPos();
-		//Vector2 scale = GetScale();
-		//Ellipse(hdc, pos.x - 10, pos.y - 10, pos.x + scale.x, pos.y + scale.y);
-
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 
 		Vector2 finalPos;
-		finalPos.x = (pos.x - mImage->GetWidth());// * (scale.x / 2.0f));
-		finalPos.y = (pos.y - mImage->GetHeight());// * (scale.y / 2.0f));
+		finalPos.x = (pos.x - mImage->GetWidth());
+		finalPos.y = (pos.y - mImage->GetHeight());
 
 		Vector2 rect;
-		rect.x = mImage->GetWidth() * 2;// * scale.x;
-		rect.y = mImage->GetHeight() * 2;// * scale.y;
+		rect.x = mImage->GetWidth() * 2;
+		rect.y = mImage->GetHeight() * 2;
 
 
 		TransparentBlt(hdc, finalPos.x, finalPos.y, rect.x, rect.y
@@ -151,17 +133,36 @@ namespace ya
 		if (mSpeed == 0 && reMoveTime < mTime)
 		{
 			mSpeed = reMoveSPeed;
-			mDir += plusDir;
 
 			if (cnt == true)
 			{
-				RotationDanmaku();
+				SetDir();
 			}
 		}
 	}
 	void Danmaku::RotationDanmaku()
 	{
-		mDir.x += 10 * Time::DeltaTime();
-		mDir.y += 10 * Time::DeltaTime();
+		//mDir.x += 100* Time::DeltaTime();
+		//mDir.y += 100 * Time::DeltaTime();
 	}
+
+
+	void Danmaku::SetDir()
+	{
+		if (targetPos == Vector2::Zero)
+		{
+			return;
+		}
+		Vector2 dir = GetPos() - targetPos;
+		dir.Normailize();
+		dir = Vector2::MinusOne * dir;
+		mDir = dir;
+	}
+	//void Danmaku::TargetToMove(Vector2 target)
+	//{
+	//	Vector2 dir = GetPos() - target;
+	//	dir.Normailize();
+	//	dir = Vector2::MinusOne * dir;
+	//	mDir = dir;
+	//}
 }

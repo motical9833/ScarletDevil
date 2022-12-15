@@ -33,12 +33,16 @@ namespace ya
 		void SetMoveTime(float time) { reMoveTime = time; }
 		void SetRemoveSpeed(float speed) { reMoveSPeed = speed; }
 		void SetPlusDir(Vector2 dir) { plusDir = dir; }
+		void SetDir();
+		//void TargetToMove(Vector2 target);
 		void SetRotBool(bool onoff) { rotBool = onoff; }
+		void SetTargetPos(Vector2 pos) { targetPos = pos; }
 
 		void DanmakuDeath();
 		void DanmakuStopMove(bool stop);
 		void RemoveDanmaku(float speed,bool cnt);
 		void RotationDanmaku();
+
 
 		void SetSrc(int w, int h)
 		{
@@ -59,6 +63,8 @@ namespace ya
 		Vector2 mDir;
 		Vector2 mDestPos;
 
+		Vector2 targetPos;
+
 		int wSrc;
 		int hSrc;
 
@@ -71,6 +77,8 @@ namespace ya
 		bool stopBool;
 		float reMoveTime;
 		float reMoveSPeed;
+
+
 		//STATE state;
 	};
 }

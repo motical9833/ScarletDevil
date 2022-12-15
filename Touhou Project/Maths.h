@@ -1,7 +1,7 @@
 #pragma once
 #include <math.h>
-#define PI 3.141592
 
+#define PI 3.141592
 namespace ya
 {
 	struct Vector2
@@ -69,6 +69,30 @@ namespace ya
 			y += other.y;
 		}
 
+		bool operator ==(const Vector2& other)
+		{
+			if (x == other.x && y == other.y)
+			{
+				return true;
+
+			}
+			else
+			{
+				return false;
+			}
+		}
+		bool operator <(const Vector2& other)
+		{
+			if (x > other.x && y > other.y)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 
 
 		float Length()
@@ -107,6 +131,23 @@ namespace ya
 			ret.y = value.x * sinf(radian) + value.y * cosf(radian);
 
 			return ret;
+		}
+
+		inline Vector2 Rotate(const Vector2 value, float degree ,Vector2 ret)
+		{
+			float radian = DegreeToRadian(degree);
+			ret.x = value.x * cosf(radian) - value.y * sinf(radian);
+			ret.y = value.x * sinf(radian) + value.y * cosf(radian);
+
+			return ret;
+		}
+		inline int Distance(Vector2& a, Vector2& b)
+		{
+			int distance;
+
+			distance = sqrt(pow(floor(a.x) - floor(b.x), 2) + pow(floor(a.y) - floor(b.y), 2));
+
+			return distance;
 		}
 	}
 }

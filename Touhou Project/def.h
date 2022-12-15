@@ -52,6 +52,20 @@ enum class eColliderLayer
 	End = _COLLIDER_LAYER,
 };
 
+enum class ATTACKPATTERN
+{
+	NMALMONSTER,
+	IDLE,
+	NOMALATTACK_A,
+	NOMALATTACK_B,
+	NOMALATTACK_C,
+	SPELLATTACK_A,
+	SPELLATTACK_B,
+	SPELLATTACK_C,
+	DIE,
+	NONE
+};
+
 // union : 메모리 공간 공유
 union ColliderID
 {

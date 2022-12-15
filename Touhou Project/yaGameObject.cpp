@@ -45,7 +45,6 @@ namespace ya
 	{
 		DeathLoop();
 
-
 		// 모든 컴포넌트를 Tick 호출
 		for (Component* component : mComponents)
 		{
@@ -57,11 +56,13 @@ namespace ya
 	}
 	void GameObject::Render(HDC hdc)
 	{
+
 		// 모든 컴포넌트를 Render 호출
 		for (Component* component : mComponents)
 		{
 			if (component == nullptr)
 				continue;
+
 
 			component->Render(hdc);
 		}

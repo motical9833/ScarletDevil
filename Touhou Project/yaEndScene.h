@@ -1,6 +1,6 @@
 #pragma once
 #include "yaScene.h"
-
+#include "yaBgImageObject.h"
 namespace ya
 {
 	class EndScene : public Scene
@@ -17,6 +17,7 @@ namespace ya
 		virtual void Exit();
 
 	private:
+
 	};
 }
 

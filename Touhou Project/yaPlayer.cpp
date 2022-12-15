@@ -25,7 +25,7 @@ namespace ya
 		,bombOnOff(true)
 	{
 		SetName(L"Player");
-		SetPos({ 100.0f,100.0f });
+		SetPos({ 800.0f,800.0f });
 		SetScale({ 2.0f,2.0f }); 
 		
 		if (mImage == nullptr)
@@ -66,12 +66,6 @@ namespace ya
 		AddComponent(new Collider());
 
 		Scene* playScene = SceneManager::GetScene();
-		//for (size_t i = 0; i < 1024; i++)
-		//{
-		//	danmaku[i] = new Danmaku();
-		//	playScene->AddGameObject(danmaku[i], eColliderLayer::Player_Projecttile);
-		//	danmaku[i]->Death();
-		//}
 
 		for (size_t i = 0; i < 3; i++)
 		{
@@ -226,38 +220,6 @@ namespace ya
 
 	void Player::Render(HDC hdc)
 	{
-		////플레이어 색
-		//HBRUSH blueBrush = CreateSolidBrush(RGB(153, 204, 255));
-		//Brush brush(hdc, blueBrush);
-
-		////플레이어 테두리 색
-		//HPEN redPen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
-		//Pen pen(hdc, redPen);
-
-		//Vector2 pos = GetPos();
-		//Vector2 scale = GetScale();
-		//
-		////크기 변경이 안된다.
-		////플레이어 그리기
-		////BitBlt(hdc, pos.x, pos.y
-		////	, mImage->GetWidth(), mImage->GetHeight()
-		////	, mImage->GetDC(), 0, 0, SRCCOPY); 
-
-		////pos = Vector2::Zero;
-
-
-		//Vector2 finalPos;
-		//finalPos.x = (pos.x - mImage->GetWidth() * (scale.x / 2.0f));
-		//finalPos.y = (pos.y - mImage->GetHeight() * (scale.y / 2.0f));
-
-		//Vector2 rect;
-		//rect.x = mImage->GetWidth() * scale.x;
-		//rect.y = mImage->GetHeight() * scale.y;
-
-		//TransparentBlt(hdc, finalPos.x, finalPos.y, rect.x, rect.y
-		//	, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight()
-		//	, RGB(255, 0, 255));
-
 		GameObject::Render(hdc);
 	}
 	void Player::OnCollisionEnter(Collider* other)

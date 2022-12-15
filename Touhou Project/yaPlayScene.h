@@ -29,10 +29,11 @@ namespace ya
 		PlayScene* GetScene() { return this; }
 
 		array <Danmaku*, 1024> danmaku;
-		array <GameObject*, 10> enemy;
+		array <GameObject*, 1> enemy;
+		GameObject* boss;
+
 
 		GameObject* player;
-
 	private:
 
 	};
